@@ -52,7 +52,6 @@ interface FeatureProps {
     title: string;
     text: string;
     icon: ReactElement;
-    maxW?: string;
 }
 
 const http = axios.create({
@@ -62,9 +61,9 @@ const http = axios.create({
     },
 })
 
-const Feature = ({ title, text, icon, maxW }: FeatureProps) => {
+const Feature = ({ title, text, icon }: FeatureProps) => {
     return (
-        <Stack align={'center'} maxW={maxW || '100%'}>
+        <Stack align={'center'}>
             <Flex
                 w={16}
                 h={16}
@@ -220,7 +219,7 @@ const Airdrop = () => {
             </Center>
             <Box
                 w='100%'
-                gap={2}
+                minH={'100vh'}
                 bgImage={'/bg_pixel_1.png'}
                 bgSize='cover'
                 bgPos={'center'}
@@ -240,29 +239,22 @@ const Airdrop = () => {
                 </AspectRatio>
 
             </Box>
+            
             <Center
                 w='100%'
                 gap={2}
-                bgImage={'/bg_pixel_2.png'}
+                minH={'50vh'}
+                bgImage={'/bg_pixel_1.png'}
                 bgSize='cover'
                 bgPos={'center'}
-                overflow={'hidden'}
                 py={'72px'}>
-                <VStack>
-                    <Feature
-                        icon={<Icon as={FcSafe} w={10} h={10} />}
-                        title={'O que são Airdrops?'}
-                        text={
-                            'São remessas gratuitas de tokens ou NFTs que você pode resgatar direto para a sua Carteira Ethereum. Os Airdrops acontecem todo #DIADEFURIA e são uma recompensa para os fãs que acompanham as vitórias da equipe assistindo os jogos em nossa Arena.'
-                        }
-                        maxW='50%'
-                    />
+                <VStack w='100%'>
 
                     <Heading pt={`144px`} size="2xl" fontWeight={'bold'} textAlign={'center'} color={headingColor}>Perguntas Frequentes.</Heading>
 
                     <Text fontSize='xl' textAlign={'center'} color={headingColor}>Fique por dentro com as principais perguntas da comunidade.</Text>
 
-                    <Accordion w='80%' py={'72px'} allowToggle>
+                    <Accordion w='60%' py={'72px'} allowToggle>
                         <AccordionItem mb={2}>
                             <h2>
                                 <AccordionButton bg={'white'} py={6} px={8}>
