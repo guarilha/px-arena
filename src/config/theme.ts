@@ -25,8 +25,8 @@ const theme = extendTheme({
   config,
   colors,
   fonts: {
-    heading: "'DM Sans', sans-serif",
-    body: "'DM Sans', sans-serif"
+    heading: "'FuriaFontBlack', sans-serif",
+    body: "'Roboto', sans-serif"
   },
   styles: {
     global: (props: Record<string, unknown>) => ({

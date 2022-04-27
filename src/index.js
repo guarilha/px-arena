@@ -12,6 +12,8 @@ import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'
 import theme from './config/theme'
 import WalletConnectProvider from './providers/WalletConnectProvider'
 
+import "./fonts.css"
+
 
 ReactDOM.render(
   <React.StrictMode>

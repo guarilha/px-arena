@@ -1,0 +1,48 @@
+/* @font-face {
+    font-family: 'FuriaFontBook';
+    font-style: normal;
+    font-weight: 450;
+    src: local('FuriaFontBook'), url('https://fonts.cdnfonts.com/s/14289/CircularStd-Book.woff') format('woff');
+}
+@font-face {
+    font-family: 'FuriaFontBookItalic';
+    font-style: italic;
+    font-weight: 450;
+    src: local('FuriaFontBookItalic'), url('https://fonts.cdnfonts.com/s/14289/CircularStd-BookItalic.woff') format('woff');
+}
+@font-face {
+    font-family: 'FuriaFontMedium';
+    font-style: normal;
+    font-weight: 500;
+    src: local('FuriaFontMedium'), url('https://fonts.cdnfonts.com/s/14289/CircularStd-Medium.woff') format('woff');
+}
+@font-face {
+    font-family: 'FuriaFontMediumItalic';
+    font-style: italic;
+    font-weight: 500;
+    src: local('FuriaFontMediumItalic'), url('https://fonts.cdnfonts.com/s/14289/CircularStd-MediumItalic.woff') format('woff');
+}
+@font-face {
+    font-family: 'FuriaFontBold';
+    font-style: normal;
+    font-weight: 700;
+    src: local('FuriaFontBold'), url('https://fonts.cdnfonts.com/s/14289/CircularStd-Bold.woff') format('woff');
+}
+@font-face {
+    font-family: 'FuriaFontBoldItalic';
+    font-style: italic;
+    font-weight: 700;
+    src: local('FuriaFontBoldItalic'), url('https://fonts.cdnfonts.com/s/14289/CircularStd-BoldItalic.woff') format('woff');
+} */
+@font-face {
+    font-family: 'FuriaFontBlack';
+    font-style: normal;
+    font-weight: 900;
+    src: local('FuriaFontBlack'), url('../public/FuriaFontBlack.otf') format('opentype');
+}
+/* @font-face {
+    font-family: 'FuriaFontBlackItalic';
+    font-style: italic;
+    font-weight: 900;
+    src: local('FuriaFontBlackItalic'), url('https://fonts.cdnfonts.com/s/14289/CircularStd-BlackItalic.woff') format('woff');
+} */
