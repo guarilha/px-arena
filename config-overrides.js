@@ -1,4 +1,5 @@
 const webpack = require('webpack')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = function override(config, env) {
   config.resolve.fallback = {
@@ -18,6 +19,8 @@ module.exports = function override(config, env) {
       Buffer: ['buffer', 'Buffer'],
     })
   )
+
+  config.plugins.push(new BundleAnalyzerPlugin())
 
   return config
 }

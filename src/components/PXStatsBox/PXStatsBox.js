@@ -9,7 +9,7 @@ import {
   // Button,
   // SimpleGrid,
 } from "@chakra-ui/react"
-import { GiMightyForce } from "react-icons/gi"
+
 
 export const PXStatsBox = () => {
   return (<>

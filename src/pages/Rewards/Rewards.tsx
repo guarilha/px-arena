@@ -1,7 +1,10 @@
-import { Box, Button, Heading, HeadingProps, SimpleGrid, Stack, Tag, Text, useColorModeValue, VStack } from '@chakra-ui/react';
-import { FcAdvertising, FcCalendar, FcCollaboration, FcVideoCall } from 'react-icons/fc'
+import { Box, Button, Heading, HeadingProps, Icon, SimpleGrid, Stack, Tag, Text, useColorModeValue, VStack } from '@chakra-ui/react';
 import { motion } from 'framer-motion'
 import MainLayout from "../../components/MainLayout";
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEthereum, faTwitter } from '@fortawesome/free-brands-svg-icons'
+import { faCheckCircle, faGift } from '@fortawesome/free-solid-svg-icons'
 
 const MotionHeading = motion<HeadingProps>(Heading)
 
@@ -69,7 +72,7 @@ const Rewards = () => {
     <MotionHeading my={8} size="lg" color={headingColor} {...motionProps}>PX Activities</MotionHeading>
       <Box as="section" maxW="5xl" mx="auto" >
         <SimpleGrid columns={{ base: 1, md: 2 }} spacingX={{ base: '4', md: '6' }} spacingY={{ base: '4', md: '6' }}>
-          <Feature title="Watch Streams" icon={<FcVideoCall />}>
+          <Feature title="Watch Streams" icon={<Icon><FontAwesomeIcon icon={faEthereum} /></Icon>}>
             <VStack align={'start'}>
               <Text>
                 Connect your Wallet to PX Arena and Watch our Streamers to receive airdrops.
@@ -77,7 +80,7 @@ const Rewards = () => {
               <Button size={'sm'} colorScheme={'purple'}>Go To PX Arena</Button>
             </VStack>
           </Feature>
-          <Feature title="Engage with FURIA on Social Networks" icon={<FcAdvertising />}>
+          <Feature title="Engage with FURIA on Social Networks" icon={<Icon><FontAwesomeIcon icon={faEthereum} /></Icon>}>
             <VStack align={'start'}>
               <Text>
                 Tweet using #DiaDeFuria, tag FURIA's official accounts, or publicly share our posts.
@@ -85,10 +88,10 @@ const Rewards = () => {
               <Button size={'sm'} colorScheme={'purple'}>Register Post</Button>
             </VStack>
           </Feature>
-          <Feature title="Attend FURIA Events" icon={<FcCalendar />} soon={true}>
+          <Feature title="Attend FURIA Events" icon={<Icon><FontAwesomeIcon icon={faEthereum} /></Icon>} soon={true}>
             Games and other important FURIA Events will distribute extra points for those who attend.
           </Feature>
-          <Feature title="Invite Your Friends" icon={<FcCollaboration />} soon={true}>
+          <Feature title="Invite Your Friends" icon={<Icon><FontAwesomeIcon icon={faEthereum} /></Icon>} soon={true}>
             When your friend completes 1000 points, you both receive 100 points from the referral. 
           </Feature>
           {/* <iframe src="https://audius.co/embed/track/WbVQK?flavor=compact" width="100%" height="480" allow="encrypted-media" style={{border: "none"}}></iframe> */}

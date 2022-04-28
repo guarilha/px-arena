@@ -23,14 +23,14 @@ import {
     Image,
     Text,
     Button,
+    Icon,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { TwitchChat } from 'react-twitch-embed'
 import useStreamers from "../../hooks/useStreamers";
 import AntiCheat from "../../components/AntiCheat";
 import ConnectButton from "../../components/ConnectButton";
-import { GrSearch } from "react-icons/gr";
-import { FaTwitch } from "react-icons/fa";
+
 import axios from "axios";
 import { useAccounts } from "../../providers/AccountsProvider";
 import { PXPWallet } from "../../components/PXPWallet";
@@ -38,6 +38,9 @@ import useWindowDimensions from "../../hooks/useWindowDimensions";
 import { FixedSizeList } from 'react-window';
 import AutoSizer from "react-virtualized-auto-sizer";
 import ReactPlayer from "react-player";
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
 
 const trackEvent = (account, stream) => {
@@ -106,7 +109,6 @@ export default function ArenaPage() {
     const RenderAvatar = ({ index, style }) => {
         const streamer = filteredStreamers[index]
         const size = height > width ? 'sm' : 'md'
-        console.log(style)
         return (
             <Tooltip
                 key={`${streamer.id}-${streamer.userName}`}
@@ -207,7 +209,7 @@ export default function ArenaPage() {
                             <PopoverTrigger>
                                 <Avatar
                                     bg='gray.300'
-                                    icon={<GrSearch fontSize='1.5rem' />}
+                                    icon={<Icon fontSize='1.5rem'><FontAwesomeIcon icon={faMagnifyingGlass} /></Icon>}
                                     mr={4}
                                     opacity={0.4}
                                     style={{ cursor: 'pointer' }}
@@ -221,7 +223,7 @@ export default function ArenaPage() {
                                         <InputGroup my={1}>
                                             <InputLeftElement
                                                 pointerEvents='none'
-                                                children={<FaTwitch color='gray.300' />}
+                                                children={<Icon color='gray.300'><FontAwesomeIcon icon={faMagnifyingGlass} /></Icon>}
                                             />
                                             <Input
                                                 ref={initialFocusRef}

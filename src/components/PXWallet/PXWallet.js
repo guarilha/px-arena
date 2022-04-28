@@ -22,7 +22,7 @@ import {
   Icon,
   DrawerCloseButton,
 } from "@chakra-ui/react";
-import { GiMightyForce } from "react-icons/gi";
+
 
 const PXWalletAvatar = () => (
   <HStack spacing={3} pt={7}>

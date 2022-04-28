@@ -23,16 +23,12 @@ import {
 } from '@chakra-ui/react';
 import axios from 'axios'
 
-import {
-    FcCalendar,
-    FcSafe,
-    FcVoicePresentation
-} from 'react-icons/fc'
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEthereum, faTwitter } from '@fortawesome/free-brands-svg-icons'
+import { faCheckCircle, faGift } from '@fortawesome/free-solid-svg-icons'
 
 import { useAccounts } from '../../providers/AccountsProvider';
 import { useWeb3 } from '../../providers/Web3Provider';
-import { IoCheckmarkCircle } from 'react-icons/io5';
 import { ReactElement } from 'react';
 
 interface FeatureProps {
@@ -80,7 +76,8 @@ const Airdrop = () => {
         px={4}
         fontSize={'sm'}
     >
-        <Icon as={IoCheckmarkCircle} fontSize="sm" mr={2} color={"green.300"} /> {accounts[0].slice(0, 4) + '…' + accounts[0].slice(accounts[0].length - 3, accounts[0].length)}
+        
+        <Icon fontSize="sm" mr={2} color={"green.300"}><FontAwesomeIcon icon={faCheckCircle} /></Icon> {accounts[0].slice(0, 4) + '…' + accounts[0].slice(accounts[0].length - 3, accounts[0].length)}
     </Tag>)
 
     const Connect = () => (
@@ -164,21 +161,21 @@ const Airdrop = () => {
                     <Box py={'36px'} px={8} maxW={'1000px'}>
                         <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8}>
                             <Feature
-                                icon={<Icon as={FcSafe} w={10} h={10} />}
+                                icon={<Icon w={10} h={10} color="black"><FontAwesomeIcon icon={faEthereum} /></Icon>}
                                 title={'1. Conecte sua Carteira Ethereum'}
                                 text={
                                     'Se você não conhece ou não tem, clica em "Como Funciona?" que a gente ensina :)'
                                 }
                             />
                             <Feature
-                                icon={<Icon as={FcVoicePresentation} w={10} h={10} />}
+                                icon={<Icon w={10} h={10} color="black"><FontAwesomeIcon icon={faTwitter} /></Icon>}
                                 title={'2. Compartilhe um Tweet'}
                                 text={
                                     'A gente prepara um tweet pra você enviar que é o seu ticket de entrada pra participar.'
                                 }
                             />
                             <Feature
-                                icon={<Icon as={FcCalendar} w={10} h={10} />}
+                                icon={<Icon w={10} h={10} color="black"><FontAwesomeIcon icon={faGift} /></Icon>}
                                 title={'3. Furia ganha, você ganha'}
                                 text={
                                     '#DiaDeFuria e a gente venceu? Fica de olho que você recebe um Airdrop na sua carteira.'
@@ -226,7 +223,7 @@ const Airdrop = () => {
                 </AspectRatio>
 
             </Box>
-            
+
             <Center
                 w='100%'
                 gap={2}

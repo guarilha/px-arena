@@ -10,6 +10,10 @@
     "@fingerprintjs/fingerprintjs": "^3.3.3",
     "@fontsource/dm-sans": "^4.5.2",
     "@fontsource/ibm-plex-mono": "^4.5.3",
+    "@fortawesome/fontawesome-svg-core": "^6.1.1",
+    "@fortawesome/free-brands-svg-icons": "^6.1.1",
+    "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "@fortawesome/react-fontawesome": "^0.1.18",
     "@mapbox/node-pre-gyp": "^1.0.8",
     "@walletconnect/web3-provider": "^1.7.1",
     "assert": "^2.0.0",
@@ -22,12 +26,12 @@
     "react": "^17.0.2",
     "react-app-rewired": "^2.2.1",
     "react-dom": "^17.0.2",
-    "react-icons": "^4.3.1",
     "react-idle-timer": "^4.6.4",
     "react-player": "^2.10.0",
     "react-query": "^3.34.15",
     "react-router-dom": "^6.2.1",
     "react-scripts": "^5.0.1",
+    "react-twitch-embed": "^2.1.0",
     "react-virtualized-auto-sizer": "^1.0.6",
     "react-window": "^1.8.7",
     "serve": "^13.0.2",
@@ -63,5 +67,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "webpack-bundle-analyzer": "^4.5.0"
   }
 }

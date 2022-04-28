@@ -7,8 +7,11 @@ import {
 } from '@chakra-ui/react'
 import { useAccounts } from '../../providers/AccountsProvider'
 import { useWeb3 } from '../../providers/Web3Provider'
-import { IoLogOutOutline, IoCheckmarkCircle } from "react-icons/io5";
+
 import { PXPWallet } from '../PXPWallet';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheckCircle, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 
 
 type ConnectButtonProps = {
@@ -28,12 +31,12 @@ const ConnectButton: React.FC<ConnectButtonProps> = () => {
       px={4}
       fontSize={'sm'}
     >
-      <Icon as={IoCheckmarkCircle} fontSize="sm" mr={2} color={"green.300"} /> {accounts[0].slice(0, 4) + '…' + accounts[0].slice(accounts[0].length - 3, accounts[0].length)}
+      <Icon fontSize="sm" mr={2} color={"green.300"}><FontAwesomeIcon icon={faCheckCircle} /></Icon> {accounts[0].slice(0, 4) + '…' + accounts[0].slice(accounts[0].length - 3, accounts[0].length)}
     </Tag>
     <Box display={{base: 'block', md:'none'}}>
       <PXPWallet />
     </Box>
-    <Button onClick={disconnect} size='sm'><IoLogOutOutline /></Button>
+    <Button onClick={disconnect} size='sm'><Icon color={"whiteAlpha.500"}><FontAwesomeIcon icon={faArrowRightFromBracket} /></Icon></Button>
   </Flex>)
 
   const Connect = () => (
