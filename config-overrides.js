@@ -2,6 +2,7 @@ const webpack = require('webpack')
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = function override(config, env) {
+  config.mode = "production"
   config.resolve.fallback = {
     url: require.resolve('url'),
     fs: require.resolve('fs'),
