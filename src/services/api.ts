@@ -1,5 +1,5 @@
 import axios from 'axios'
-import Pagination from '../@types/Pagination'
+// import Pagination from '../@types/Pagination'
 
 const http = axios.create({
   baseURL: process.env.REACT_APP_API_URL || 'https://furia-api.herokuapp.com/',

@@ -1,4 +1,4 @@
-import { Box, Container } from "@chakra-ui/react"
+import { Container } from "@chakra-ui/react"
 
 
 export type MainLayoutProps = {

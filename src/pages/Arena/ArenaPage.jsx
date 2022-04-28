@@ -25,7 +25,7 @@ import {
     Button,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { TwitchEmbed, TwitchChat } from 'react-twitch-embed'
+import { TwitchChat } from 'react-twitch-embed'
 import useStreamers from "../../hooks/useStreamers";
 import AntiCheat from "../../components/AntiCheat";
 import ConnectButton from "../../components/ConnectButton";

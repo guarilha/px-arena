@@ -10,7 +10,6 @@ import ReactQueryProvider from './providers/ReactQueryProvider'
 import { BrowserRouter } from 'react-router-dom'
 import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'
 import theme from './config/theme'
-import WalletConnectProvider from './providers/WalletConnectProvider'
 
 import "./fonts.css"
 
@@ -21,13 +20,11 @@ ReactDOM.render(
       <ReactQueryProvider>
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <ChakraProvider resetCSS theme={theme}>
-          <WalletConnectProvider>
             <Web3Provider>
               <AccountsProvider>
                     <App />
               </AccountsProvider>
             </Web3Provider>
-          </WalletConnectProvider>
         </ChakraProvider>
       </ReactQueryProvider>
     </BrowserRouter>

@@ -1,5 +1,5 @@
-import { Box, Button, Center, Heading, HeadingProps, SimpleGrid, Stack, Tag, Text, useColorModeValue, VStack } from '@chakra-ui/react';
-import { FcAdvertising, FcCalendar, FcCollaboration, FcDoughnutChart, FcMultipleDevices, FcPrivacy, FcTimeline, FcVideoCall } from 'react-icons/fc'
+import { Box, Button, Heading, HeadingProps, SimpleGrid, Stack, Tag, Text, useColorModeValue, VStack } from '@chakra-ui/react';
+import { FcAdvertising, FcCalendar, FcCollaboration, FcVideoCall } from 'react-icons/fc'
 import { motion } from 'framer-motion'
 import MainLayout from "../../components/MainLayout";
 
@@ -91,7 +91,7 @@ const Rewards = () => {
           <Feature title="Invite Your Friends" icon={<FcCollaboration />} soon={true}>
             When your friend completes 1000 points, you both receive 100 points from the referral. 
           </Feature>
-          <iframe src="https://audius.co/embed/track/WbVQK?flavor=compact" width="100%" height="480" allow="encrypted-media" style={{border: "none"}}></iframe>
+          {/* <iframe src="https://audius.co/embed/track/WbVQK?flavor=compact" width="100%" height="480" allow="encrypted-media" style={{border: "none"}}></iframe> */}
         </SimpleGrid>
       </Box>
     </VStack>

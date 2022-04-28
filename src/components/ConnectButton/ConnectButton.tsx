@@ -3,30 +3,20 @@ import {
   Flex,
   Icon,
   Button,
-  HStack,
-  useColorModeValue,
-  Collapse,
-  useDisclosure,
-  Link,
-  IconButton,
-  Stack,
-  Spacer,
   Tag
 } from '@chakra-ui/react'
 import { useAccounts } from '../../providers/AccountsProvider'
 import { useWeb3 } from '../../providers/Web3Provider'
 import { IoLogOutOutline, IoCheckmarkCircle } from "react-icons/io5";
-import { ReactNode } from 'react'
 import { PXPWallet } from '../PXPWallet';
 
 
 type ConnectButtonProps = {
 }
 
-const ConnectButton: React.FC<ConnectButtonProps> = ({
-}) => {
+const ConnectButton: React.FC<ConnectButtonProps> = () => {
   const accounts = useAccounts()
-  const { connect, disconnect, toggleModal, isConnected } = useWeb3()
+  const { connect, disconnect } = useWeb3()
 
   const WalletButton = () => (<Flex direction='row' align='center' justify={'space-between'} w='full'>
     <Tag

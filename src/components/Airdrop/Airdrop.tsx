@@ -8,45 +8,32 @@ import {
     Box,
     Button,
     Center,
-    Container,
     Flex,
     GlobalStyle,
     Heading,
-    HeadingProps,
     HStack,
     Icon,
     Image,
     LightMode,
-    Link,
     SimpleGrid,
     Stack,
     Tag,
     Text,
-    useColorModeValue,
     VStack
 } from '@chakra-ui/react';
 import axios from 'axios'
+
 import {
-    FcAdvertising,
-    FcAssistant,
     FcCalendar,
-    FcCollaboration,
-    FcDonate,
-    FcDoughnutChart,
-    FcInTransit,
-    FcMultipleDevices,
-    FcPrivacy,
     FcSafe,
-    FcTimeline,
-    FcVideoCall,
     FcVoicePresentation
 } from 'react-icons/fc'
+
+
 import { useAccounts } from '../../providers/AccountsProvider';
 import { useWeb3 } from '../../providers/Web3Provider';
 import { IoCheckmarkCircle } from 'react-icons/io5';
 import { ReactElement } from 'react';
-
-import ReactPlayer from "react-player/youtube";
 
 interface FeatureProps {
     title: string;
@@ -81,7 +68,7 @@ const Feature = ({ title, text, icon }: FeatureProps) => {
 
 const Airdrop = () => {
     const accounts = useAccounts()
-    const { web3, connect, disconnect, toggleModal, isConnected } = useWeb3()
+    const { web3, connect } = useWeb3()
 
 
     const WalletViewer = () => (<Tag
@@ -114,7 +101,7 @@ const Airdrop = () => {
             const messageHash = await web3.eth.personal.sign(msg, accounts[0], 'furia');
 
             try {
-                const result = await http.post('/identity', {
+                await http.post('/identity', {
                     wallet: accounts[0],
                     signature: messageHash,
                 })
@@ -138,18 +125,18 @@ const Airdrop = () => {
         </Button>
     )
 
-    const How = () => (
-        <Button
-            size='lg'
-            variant={'outline'}
-            color={headingColor}
-            rounded={0}
-            bg='white'
-            onClick={() => console.log('clicou')}
-        >
-            Como Funciona?
-        </Button>
-    )
+    // const How = () => (
+    //     <Button
+    //         size='lg'
+    //         variant={'outline'}
+    //         color={headingColor}
+    //         rounded={0}
+    //         bg='white'
+    //         onClick={() => console.log('clicou')}
+    //     >
+    //         Como Funciona?
+    //     </Button>
+    // )
 
     const headingColor = 'gray.800'
 
@@ -302,8 +289,6 @@ const Airdrop = () => {
                 py={'72px'}>
 
                 <Heading size="4xl" fontWeight={'bold'} textAlign={'center'} color={headingColor}>Dúvidas? Pula no Discord.</Heading>
-
-
             </Center>
             <Button>
 

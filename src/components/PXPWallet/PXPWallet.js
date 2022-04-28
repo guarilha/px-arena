@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import {
   Box,
   Center,
@@ -6,10 +5,8 @@ import {
   Heading,
   Spinner,
   Stack,
-  useInterval,
 } from "@chakra-ui/react";
 import { useAccounts } from "../../providers/AccountsProvider";
-import apiService from '../../services/api'
 import usePoints from "../../hooks/usePoints";
 
 export const PXPWallet = () => {
@@ -18,6 +15,7 @@ export const PXPWallet = () => {
   
   return (
     <>
+    {accounts[0] && 
       <Center w={"full"}>
         <Box
           // maxW={'270px'}
@@ -51,6 +49,7 @@ export const PXPWallet = () => {
           </Flex>
         </Box>
       </Center>
+      }
     </>
   );
 };

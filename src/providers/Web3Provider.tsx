@@ -91,7 +91,7 @@ const Web3Provider: React.FC = ({ children }) => {
   const toggleModal = useCallback(async () => {
     await disconnect()
     await connect()
-  }, [])
+  }, [connect, disconnect])
 
   useEffect(() => {
     if (web3Modal.cachedProvider) {
