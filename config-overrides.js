@@ -1,8 +1,13 @@
 const webpack = require('webpack')
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = function override(config, env) {
-  config.mode = "production"
+  config.module.rules.push({
+    test: /\.m?js/,
+    resolve: {
+        fullySpecified: false
+    }
+})
   config.resolve.fallback = {
     url: require.resolve('url'),
     fs: require.resolve('fs'),
@@ -21,7 +26,7 @@ module.exports = function override(config, env) {
     })
   )
 
-  // config.plugins.push(new BundleAnalyzerPlugin())
+  config.plugins.push(new BundleAnalyzerPlugin())
 
   return config
 }

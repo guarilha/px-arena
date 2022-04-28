@@ -39,7 +39,7 @@ import AutoSizer from "react-virtualized-auto-sizer";
 import ReactPlayer from "react-player";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass'
 
 
 const trackEvent = (account, stream) => {
@@ -89,14 +89,11 @@ export default function ArenaPage() {
     const { data: streamers, isLoading: isLoadingStreamers } = useStreamers();
     const accounts = useAccounts();
     const [search, setSearch] = useState("");
+    const [playing, setPlaying] = useState(true);
     const initialFocusRef = React.useRef();
     const { height, width } = useWindowDimensions();
 
-    let startStreamer;
-    if (!isLoadingStreamers && streamers && streamers[0]) {
-        startStreamer = streamers[0].userName
-    }
-    const [channel, setChannel] = useState(startStreamer || 'FURIAtv')
+    const [channel, setChannel] = useState("")
     if (isLoadingStreamers) return <Center h='100vh'><Spinner /></Center>
 
     const filteredStreamers = !search
@@ -172,10 +169,12 @@ export default function ArenaPage() {
 
                 <GridItem colSpan={{ base: 6, md: 5 }} h={{ base: '25vh', md: 'full' }}>
                     <ReactPlayer  
-                        url={`https://twitch.tv/${channel}`}
+                        url={channel === "" ? "https://www.youtube.com/watch?v=MfXpg5XZISQ" : `https://twitch.tv/${channel}`}
                         width='100%'
                         height='100%'
-
+                        playing={playing}
+                        onPause={()=>setPlaying(false)}
+                        onPlay={()=>setPlaying(true)}
                     />
                 </GridItem>
                 <GridItem colSpan={{ base: 6, md: 1 }} minW={{ base: 'full', md: '300px' }} mt={{ base: 1, md: 0 }} h={{ base: '65vh', md: 'full' }} >
@@ -190,6 +189,7 @@ export default function ArenaPage() {
                             <iframe src={`https://www.twitch.tv/embed/${channel}/chat?darkpopout&migration=true&parent=${window.location.hostname}`}
                                 width='100%'
                                 height='100%'
+                                title="twitch-chat"
                                 sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-modals"
                             >
                             </iframe>
