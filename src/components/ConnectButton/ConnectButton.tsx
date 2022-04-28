@@ -43,12 +43,12 @@ const ConnectButton: React.FC<ConnectButtonProps> = ({
     <Box display={{base: 'block', md:'none'}}>
       <PXPWallet />
     </Box>
-    <Button display={{base: 'none', md:'block'}} onClick={disconnect} size='sm' leftIcon={<IoLogOutOutline />}>Exit</Button>
-    <Button display={{base: 'block', md:'none'}} onClick={disconnect} size='sm'><IoLogOutOutline /></Button>
+    <Button onClick={disconnect} size='sm'><IoLogOutOutline /></Button>
   </Flex>)
 
   const Connect = () => (
     <Button
+      w={"100%"}
       bgGradient="linear(to-r, blue.400, purple.500)"
       _hover={{
         bgGradient: 'linear(to-r, blue.500, purple.600)',

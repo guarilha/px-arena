@@ -169,13 +169,13 @@ const Airdrop = () => {
                     <Image src='/icons/FURIA_logo_minimal.svg' boxSize={'320px'} my={8} />
 
                     <VStack>
-                        <Heading size="4xl" fontWeight={'bold'} textAlign={'center'} color={headingColor}>A FURIA ganhou, você ganha.</Heading>
+                        <Heading size="4xl" fontFamily={'FuriaFontBlack'} textAlign={'center'} color={headingColor}>A FURIA ganhou, você ganha.</Heading>
 
                         <Text fontSize='xl' textAlign={'center'} color={headingColor}>Todo jogo da Furia tem uma novidade para quem é fã de verdade.</Text>
                     </VStack>
 
-                    <Box py={8} px={8} maxW={'900px'}>
-                        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={10}>
+                    <Box py={'36px'} px={8} maxW={'1000px'}>
+                        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8}>
                             <Feature
                                 icon={<Icon as={FcSafe} w={10} h={10} />}
                                 title={'1. Conecte sua Carteira Ethereum'}
@@ -206,13 +206,13 @@ const Airdrop = () => {
                             <WalletViewer />
                             <HStack spacing={8}>
                                 <CallToAction />
-                                <How />
+                                {/* <How /> */}
                             </HStack>
                         </VStack>
                     ) : (
                         <HStack>
                             <Connect />
-                            <How />
+                            {/* <How /> */}
                         </HStack>
                     )}
                 </VStack>
@@ -254,17 +254,17 @@ const Airdrop = () => {
 
                     <Text fontSize='xl' textAlign={'center'} color={headingColor}>Fique por dentro com as principais perguntas da comunidade.</Text>
 
-                    <Accordion w='60%' py={'72px'} allowToggle>
+                    <Accordion w='60%' py={'72px'} defaultIndex={[0]} allowToggle>
                         <AccordionItem mb={2}>
                             <h2>
                                 <AccordionButton bg={'white'} py={6} px={8}>
                                     <Box flex='1' textAlign='left'>
-                                        Uma pergunta bem legal?
+                                        <Heading fontSize={'xl'}>O que é um Airdrop?</Heading>
                                     </Box>
                                     <AccordionIcon />
                                 </AccordionButton>
                             </h2>
-                            <AccordionPanel bg={'white'} py={6} px={8}>
+                            <AccordionPanel bg={'white'} pb={6} px={8}>
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
                                 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
                                 veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
@@ -276,12 +276,12 @@ const Airdrop = () => {
                             <h2>
                                 <AccordionButton bg={'white'} py={6} px={8}>
                                     <Box flex='1' textAlign='left'>
-                                        Todo mundo ta querendo saber isso aqui
+                                        <Heading fontSize={'xl'}>Todo mundo ta querendo saber isso aqui</Heading>
                                     </Box>
                                     <AccordionIcon />
                                 </AccordionButton>
                             </h2>
-                            <AccordionPanel bg={'white'} py={6} px={8}>
+                            <AccordionPanel bg={'white'} pb={6} px={8}>
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
                                 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
                                 veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
@@ -305,7 +305,9 @@ const Airdrop = () => {
 
 
             </Center>
+            <Button>
 
+            </Button>
         </LightMode>)
 }
 

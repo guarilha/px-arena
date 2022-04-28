@@ -25,7 +25,7 @@ const theme = extendTheme({
   config,
   colors,
   fonts: {
-    heading: "'FuriaFontBlack', sans-serif",
+    heading: "'FuriaFontBold', sans-serif",
     body: "'Roboto', sans-serif"
   },
   styles: {

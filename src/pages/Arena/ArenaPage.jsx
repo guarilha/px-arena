@@ -35,6 +35,9 @@ import axios from "axios";
 import { useAccounts } from "../../providers/AccountsProvider";
 import { PXPWallet } from "../../components/PXPWallet";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
+import { FixedSizeList } from 'react-window';
+import AutoSizer from "react-virtualized-auto-sizer";
+import ReactPlayer from "react-player";
 
 
 const trackEvent = (account, stream) => {
@@ -44,7 +47,7 @@ const trackEvent = (account, stream) => {
             'Content-Type': 'application/json'
         }
     });
-    
+
     const data = {
         eventType: 'changeStream',
         user: account,
@@ -53,7 +56,7 @@ const trackEvent = (account, stream) => {
             idle: false
         }
     }
-    if(data.user) http.post('/track', data)
+    if (data.user) http.post('/track', data)
 }
 
 export const Ads = () => {
@@ -94,18 +97,26 @@ export default function ArenaPage() {
     const [channel, setChannel] = useState(startStreamer || 'FURIAtv')
     if (isLoadingStreamers) return <Center h='100vh'><Spinner /></Center>
 
-    const renderStreamerAvatar = (streamer) => {
+    const filteredStreamers = !search
+        ? streamers
+        : streamers.filter((streamer) =>
+            streamer.userName.toLowerCase().includes(search.toLowerCase())
+        );
+
+    const RenderAvatar = ({ index, style }) => {
+        const streamer = filteredStreamers[index]
         const size = height > width ? 'sm' : 'md'
+        console.log(style)
         return (
             <Tooltip
                 key={`${streamer.id}-${streamer.userName}`}
-                label={`${streamer.userName}: ${(streamer.liveViewers || streamer.views).toLocaleString()} ${streamer.liveViewers ? 'viewers' : 'views'}`} 
+                label={`${streamer.userName}: ${(streamer.liveViewers || streamer.views).toLocaleString()} ${streamer.liveViewers ? 'viewers' : 'views'}`}
                 fontSize='md'
                 placement='top' hasArrow bg='blackAlpha.900' color="gray.200" p={3} rounded={'lg'}
             >
-                
+
                 <Avatar
-                    onClick={() => { setChannel(`${streamer.userName}`); trackEvent(accounts[0], streamer.userName); } }
+                    onClick={() => { setChannel(`${streamer.userName}`); trackEvent(accounts[0], streamer.userName); }}
                     mr={4}
                     size={size || 'md'}
                     name={streamer.userName}
@@ -116,10 +127,20 @@ export default function ArenaPage() {
                             bg: 'green.300',
                             borderColor: 'green.300',
                             padding: '2px',
-                            border: '1px'
+                            border: '1px',
+                            position: style.position,
+                            left: style.left,
+                            right: style.right,
+                            top: style.top,
                         }
                         :
-                        { cursor: 'pointer' }
+                        {
+                            cursor: 'pointer',
+                            position: style.position,
+                            left: style.left,
+                            right: style.right,
+                            top: style.top,
+                        }
                     }
                     _hover={{ border: '1px solid', borderColor: 'purple.400' }}
                 >
@@ -128,46 +149,37 @@ export default function ArenaPage() {
             </Tooltip>
         )
     }
-    
-    const filteredStreamers = !search
-        ? streamers
-        : streamers.filter((streamer) =>
-            streamer.userName.toLowerCase().includes(search.toLowerCase())
-        );
-    
-    console.log(filteredStreamers.length)
 
     const size = height > width ? 'sm' : 'md'
-    
+
     return (
         <AntiCheat channel={channel} account={accounts[0]} h='100%' w='100%' overflow='hidden'>
             <Grid
-                h={{base:'calc(100vh - 48px)', md:'calc(100vh - 92px)'}}
+                h={{ base: 'calc(100vh - 48px)', md: 'calc(100vh - 92px)' }}
                 w='100%'
                 templateColumns='repeat(6, 1fr)'
-                gap={{base:0, md:2}}
+                gap={{ base: 0, md: 2 }}
                 bg='black'
                 overflow={'hidden'}
-                p={{base:0, md:2}}>
-                
-                <GridItem colSpan={6} display={{base: 'block', md:'none'}} px={2} pt={2} pb={{base:1, md:2}}>
+                p={{ base: 0, md: 2 }}>
+
+                <GridItem colSpan={6} display={{ base: 'block', md: 'none' }} px={2} pt={2} pb={{ base: 1, md: 2 }}>
                     <VStack spacing={1}>
                         <ConnectButton />
                     </VStack>
                 </GridItem>
 
-                <GridItem colSpan={{base:6, md: 5}} h={{base: '25vh', md:'full'}}>
-                    <TwitchEmbed
-                        channel={channel}
+                <GridItem colSpan={{ base: 6, md: 5 }} h={{ base: '25vh', md: 'full' }}>
+                    <ReactPlayer  
+                        url={`https://twitch.tv/${channel}`}
                         width='100%'
                         height='100%'
-                        autoplay={true}
-                        withChat={false}
+
                     />
                 </GridItem>
-                <GridItem colSpan={{base:6, md:1}} minW={{base:'full', md:'300px'}} mt={{base: 1, md: 0}} h={{base: '65vh', md:'full'}} >
+                <GridItem colSpan={{ base: 6, md: 1 }} minW={{ base: 'full', md: '300px' }} mt={{ base: 1, md: 0 }} h={{ base: '65vh', md: 'full' }} >
                     <VStack h='100%'>
-                        <Box w='100%' display={{base: 'none', md:'block'}}>
+                        <Box w='100%' display={{ base: 'none', md: 'block' }}>
                             <VStack spacing={1}>
                                 <ConnectButton />
                                 <PXPWallet />
@@ -185,12 +197,12 @@ export default function ArenaPage() {
             </Grid>
             <Grid w='100%' templateColumns='repeat(1, 1fr)'>
                 <GridItem sx={{ overflowX: 'scroll', overflowY: 'hidden' }}>
-                    <Flex p={{base:2, md:4}} direction="row" sx={{ width: '100%', whiteSpace: 'nowrap' }}>
+                    <Flex p={{ base: 2, md: 4 }} direction="row" sx={{ width: '100%', whiteSpace: 'nowrap' }}>
                         <Popover
                             initialFocusRef={initialFocusRef}
                             placement='bottom'
                             closeOnBlur={false}
-                            onClose={()=>setSearch('')}
+                            onClose={() => setSearch('')}
                         >
                             <PopoverTrigger>
                                 <Avatar
@@ -211,13 +223,13 @@ export default function ArenaPage() {
                                                 pointerEvents='none'
                                                 children={<FaTwitch color='gray.300' />}
                                             />
-                                            <Input 
-                                                ref={initialFocusRef} 
-                                                placeholder='Search' 
+                                            <Input
+                                                ref={initialFocusRef}
+                                                placeholder='Search'
                                                 onChange={(e) => setSearch(e.target.value)}
                                                 value={search}
                                             />
-                                            <InputRightElement 
+                                            <InputRightElement
                                                 children={<PopoverCloseButton />}
                                             />
                                         </InputGroup>
@@ -225,7 +237,24 @@ export default function ArenaPage() {
                                 </PopoverContent>
                             </Portal>
                         </Popover>
-                        {!isLoadingStreamers ? filteredStreamers?.map(renderStreamerAvatar) : <Spinner />}
+
+                        {!isLoadingStreamers ?
+                            <Box display={'block'} w="100%">
+                                <AutoSizer>
+                                    {({ height, width }) => (
+                                        <FixedSizeList
+                                            height={height + 20}
+                                            width={width}
+                                            itemCount={filteredStreamers.length}
+                                            itemSize={58}
+                                            layout="horizontal"
+                                        >
+                                            {RenderAvatar}
+                                        </FixedSizeList>
+                                    )}
+                                </AutoSizer>
+                            </Box>
+                            : <Spinner />}
                     </Flex>
                 </GridItem>
             </Grid>
