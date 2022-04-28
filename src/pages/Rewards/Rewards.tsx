@@ -1,12 +1,10 @@
 import { Box, Button, Heading, HeadingProps, Icon, SimpleGrid, Stack, Tag, Text, useColorModeValue, VStack } from '@chakra-ui/react';
-import { motion } from 'framer-motion'
 import MainLayout from "../../components/MainLayout";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEthereum, faTwitter } from '@fortawesome/free-brands-svg-icons'
-import { faCheckCircle, faGift } from '@fortawesome/free-solid-svg-icons'
+import { faEthereum } from '@fortawesome/free-brands-svg-icons'
 
-const MotionHeading = motion<HeadingProps>(Heading)
+
 
 interface FeatureProps {
   title: string
@@ -48,28 +46,9 @@ export const Feature = (props: FeatureProps) => {
 const Rewards = () => {
   const headingColor = useColorModeValue('gray.800', 'gray.300')
 
-  const motionProps = {
-    variants: {
-      hidden: {
-        opacity: 0,
-        y: -2,
-      },
-      shown: {
-        opacity: 1,
-        y: 0,
-        transition: {
-          duration: 0.4,
-          delay: 0.2,
-        },
-      },
-    },
-    initial: 'hidden',
-    animate: 'shown',
-  }
-
   return (<MainLayout>
     <VStack align={'center'}>
-    <MotionHeading my={8} size="lg" color={headingColor} {...motionProps}>PX Activities</MotionHeading>
+    <Heading my={8} size="lg" color={headingColor}>PX Activities</Heading>
       <Box as="section" maxW="5xl" mx="auto" >
         <SimpleGrid columns={{ base: 1, md: 2 }} spacingX={{ base: '4', md: '6' }} spacingY={{ base: '4', md: '6' }}>
           <Feature title="Watch Streams" icon={<Icon><FontAwesomeIcon icon={faEthereum} /></Icon>}>

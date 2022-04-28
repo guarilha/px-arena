@@ -26,7 +26,6 @@ import {
     Icon,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { TwitchChat } from 'react-twitch-embed'
 import useStreamers from "../../hooks/useStreamers";
 import AntiCheat from "../../components/AntiCheat";
 import ConnectButton from "../../components/ConnectButton";
@@ -187,13 +186,14 @@ export default function ArenaPage() {
                                 <PXPWallet />
                             </VStack>
                         </Box>
-                        {/* <Ads /> */}
-                        <TwitchChat
-                            channel={channel}
-                            width='100%'
-                            height='100%'
-                            theme='dark'
-                        />
+                        <Box w='100%' h='100%' >
+                            <iframe src={`https://www.twitch.tv/embed/${channel}/chat?darkpopout&migration=true&parent=${window.location.hostname}`}
+                                width='100%'
+                                height='100%'
+                                sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-modals"
+                            >
+                            </iframe>
+                        </Box>
                     </VStack>
                 </GridItem>
             </Grid>
