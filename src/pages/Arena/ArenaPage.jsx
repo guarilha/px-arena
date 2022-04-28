@@ -186,6 +186,7 @@ export default function ArenaPage() {
                             </VStack>
                         </Box>
                         <Box w='100%' h='100%' >
+                        {channel !== "" &&
                             <iframe src={`https://www.twitch.tv/embed/${channel}/chat?darkpopout&migration=true&parent=${window.location.hostname}`}
                                 width='100%'
                                 height='100%'
@@ -193,6 +194,7 @@ export default function ArenaPage() {
                                 sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-modals"
                             >
                             </iframe>
+                        }
                         </Box>
                     </VStack>
                 </GridItem>
