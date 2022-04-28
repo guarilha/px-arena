@@ -13,8 +13,6 @@ import Web3Modal from 'web3modal'
 
 import WalletConnect from '@walletconnect/web3-provider'
 import WalletLink from 'walletlink'
-import Torus from '@toruslabs/torus-embed'
-import Authereum from 'authereum'
 import { DEFAULT_NETWORK, INFURA_ID } from '../config/settings'
 
 const infuraId = INFURA_ID
@@ -32,15 +30,6 @@ const providerOptions = {
       appName: 'FURIA PX',
       infuraId,
     },
-  },
-  torus: {
-    package: Torus,
-    options: {
-      network: 'rinkeby',
-    },
-  },
-  authereum: {
-    package: Authereum,
   },
 }
 
