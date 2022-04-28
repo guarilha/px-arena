@@ -1,4 +1,6 @@
-import Router from './Router'
+import loadable from '@loadable/component'
+
+const Router = loadable(() => import('./Router'))
 
 const App = () => {
   return <Router />

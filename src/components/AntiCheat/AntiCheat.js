@@ -36,7 +36,7 @@ class AntiCheatInternal extends Component {
         const { visitorId } = await this.fp.get()
         this.visitorId = visitorId
         this.heartbeat = setInterval(() => {
-            if(this.idleTimer.isLeader()) { 
+            if(this.idleTimer && this.idleTimer.isLeader()) { 
                 this.generateEvent()
             }
         }, 10000);

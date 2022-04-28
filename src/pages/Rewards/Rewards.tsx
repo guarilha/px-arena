@@ -1,9 +1,11 @@
-import { Box, Button, Heading, HeadingProps, Icon, SimpleGrid, Stack, Tag, Text, useColorModeValue, VStack } from '@chakra-ui/react';
-import MainLayout from "../../components/MainLayout";
+import loadable from '@loadable/component'
+import { Box, Button, Heading, Icon, SimpleGrid, Stack, Tag, Text, useColorModeValue, VStack } from '@chakra-ui/react';
+
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEthereum } from '@fortawesome/free-brands-svg-icons'
 
+const MainLayout = loadable(() => import("../../components/MainLayout"));
 
 
 interface FeatureProps {

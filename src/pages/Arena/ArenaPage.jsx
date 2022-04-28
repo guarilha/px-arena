@@ -1,3 +1,4 @@
+
 import {
     Avatar,
     Center,
@@ -26,14 +27,8 @@ import {
     Icon,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import useStreamers from "../../hooks/useStreamers";
-import AntiCheat from "../../components/AntiCheat";
-import ConnectButton from "../../components/ConnectButton";
-
+import loadable from '@loadable/component';
 import axios from "axios";
-import { useAccounts } from "../../providers/AccountsProvider";
-import { PXPWallet } from "../../components/PXPWallet";
-import useWindowDimensions from "../../hooks/useWindowDimensions";
 import { FixedSizeList } from 'react-window';
 import AutoSizer from "react-virtualized-auto-sizer";
 import ReactPlayer from "react-player";
@@ -41,6 +36,13 @@ import ReactPlayer from "react-player";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass'
 
+import useStreamers from "../../hooks/useStreamers";
+import { useAccounts } from "../../providers/AccountsProvider";
+import useWindowDimensions from "../../hooks/useWindowDimensions";
+
+const AntiCheat = loadable(() => import('../../components/AntiCheat'));
+const ConnectButton = loadable(() => import('../../components/ConnectButton'));
+const PXPWallet = loadable(() => import("../../components/PXPWallet"));
 
 const trackEvent = (account, stream) => {
     const http = axios.create({
@@ -89,7 +91,7 @@ export default function ArenaPage() {
     const { data: streamers, isLoading: isLoadingStreamers } = useStreamers();
     const accounts = useAccounts();
     const [search, setSearch] = useState("");
-    const [playing, setPlaying] = useState(true);
+    const [playing, setPlaying] = useState(false);
     const initialFocusRef = React.useRef();
     const { height, width } = useWindowDimensions();
 

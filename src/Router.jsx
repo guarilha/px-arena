@@ -3,7 +3,7 @@ import loadable from '@loadable/component'
 import { Routes, Route } from 'react-router-dom'
 // import Airdrop from './components/Airdrop'
 // import ArenaPage from './pages/Arena'
-const Airdrop = loadable(() => import('./components/Airdrop'))
+const Airdrop = loadable(() => import('./pages/Airdrop'))
 const Arena = loadable(() => import('./pages/Arena'))
 const Rewards = loadable(() => import('./pages/Rewards'))
 // import Rewards from './pages/Rewards'

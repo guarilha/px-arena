@@ -5,13 +5,14 @@ import {
   Button,
   Tag
 } from '@chakra-ui/react'
+import loadable from '@loadable/component'
 import { useAccounts } from '../../providers/AccountsProvider'
 import { useWeb3 } from '../../providers/Web3Provider'
-
-import { PXPWallet } from '../PXPWallet';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
+
+const PXPWallet = loadable(() => import("../../components/PXPWallet"));
+
 
 
 type ConnectButtonProps = {

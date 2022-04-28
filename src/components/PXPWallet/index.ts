@@ -1,2 +1,3 @@
-export { default as PXPWallet } from './PXPWallet'
+import PXPWallet from './PXPWallet'
 
+export default PXPWallet
