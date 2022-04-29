@@ -9,7 +9,8 @@ import loadable from '@loadable/component'
 import { useAccounts } from '../../providers/AccountsProvider'
 import { useWeb3 } from '../../providers/Web3Provider'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheckCircle, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons/faCheckCircle'
+import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons/faArrowRightFromBracket'
 
 const PXPWallet = loadable(() => import("../../components/PXPWallet"));
 

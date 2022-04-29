@@ -3,7 +3,7 @@ import { Box, Button, Heading, Icon, SimpleGrid, Stack, Tag, Text, useColorModeV
 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEthereum } from '@fortawesome/free-brands-svg-icons'
+import { faEthereum } from '@fortawesome/free-brands-svg-icons/faEthereum'
 
 const MainLayout = loadable(() => import("../../components/MainLayout"));
 

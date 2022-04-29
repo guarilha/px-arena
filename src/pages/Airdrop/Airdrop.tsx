@@ -24,8 +24,10 @@ import {
 import axios from 'axios'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEthereum, faTwitter } from '@fortawesome/free-brands-svg-icons'
-import { faCheckCircle, faGift } from '@fortawesome/free-solid-svg-icons'
+import { faEthereum } from '@fortawesome/free-brands-svg-icons/faEthereum'
+import { faTwitter } from '@fortawesome/free-brands-svg-icons/faTwitter'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons/faCheckCircle'
+import { faGift } from '@fortawesome/free-solid-svg-icons/faGift'
 
 import { useAccounts } from '../../providers/AccountsProvider';
 import { useWeb3 } from '../../providers/Web3Provider';
