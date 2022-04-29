@@ -120,7 +120,7 @@ export default function ArenaPage() {
                     mr={4}
                     size={size || 'md'}
                     name={streamer.userName}
-                    src={streamer.profilePictureUrl}
+                    src={ process.env.REACT_APP_API_URL || 'https://furia-api.herokuapp.com' + streamer.profilePictureUrl}
                     sx={streamer.userName === channel ?
                         {
                             cursor: 'pointer',
