@@ -120,7 +120,7 @@ export default function ArenaPage() {
                     mr={4}
                     size={size || 'md'}
                     name={streamer.userName}
-                    src={`data:image/jpeg;base64,${streamer.profilePictureUrl}`}
+                    src={streamer.profilePictureUrl}
                     sx={streamer.userName === channel ?
                         {
                             cursor: 'pointer',
