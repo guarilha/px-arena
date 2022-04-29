@@ -2,12 +2,13 @@ const webpack = require('webpack')
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = function override(config, env) {
+  config.devtool = 'hidden-source-map'
   config.module.rules.push({
     test: /\.m?js/,
     resolve: {
-        fullySpecified: false
+      fullySpecified: false
     }
-})
+  })
   config.resolve.fallback = {
     url: require.resolve('url'),
     fs: require.resolve('fs'),
