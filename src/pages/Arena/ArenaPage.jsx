@@ -110,7 +110,7 @@ export default function ArenaPage() {
         return (
             <Tooltip
                 key={`${streamer.id}-${streamer.userName}`}
-                label={`${streamer.userName}: ${(streamer.liveViewers || streamer.views).toLocaleString()} ${streamer.liveViewers ? 'viewers' : 'views'}`}
+                label={`${streamer.userName}: ${(streamer.stream.gameName && streamer.stream.gameName + ': ')}${(streamer.liveViewers || streamer.views).toLocaleString()} ${streamer.liveViewers ? 'viewers' : 'views'}`} 
                 fontSize='md'
                 placement='top' hasArrow bg='blackAlpha.900' color="gray.200" p={3} rounded={'lg'}
             >
