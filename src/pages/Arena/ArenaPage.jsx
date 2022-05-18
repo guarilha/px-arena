@@ -100,17 +100,23 @@ export default function ArenaPage() {
 
     const filteredStreamers = !search
         ? streamers
-        : streamers.filter((streamer) =>
-            streamer.userName.toLowerCase().includes(search.toLowerCase())
+        : streamers.filter((streamer) => {
+            const matchesUserName = streamer.userName.toLowerCase().includes(search.toLowerCase())
+            let matchesGameName = false
+            if (streamer.stream) {
+                matchesGameName = streamer.stream.gameName.toLowerCase().includes(search.toLowerCase())
+            }
+            return matchesUserName || matchesGameName
+        }
         );
 
     const RenderAvatar = ({ index, style }) => {
         const streamer = filteredStreamers[index]
-        const size = height > width ? 'sm' : 'md'
+        
         return (
             <Tooltip
                 key={`${streamer.id}-${streamer.userName}`}
-                label={`${streamer.userName}: ${(streamer.stream?.gameName && streamer.stream.gameName + ': ')}${(streamer.liveViewers || streamer.views).toLocaleString()} ${streamer.liveViewers ? 'viewers' : 'views'}`} 
+                label={`${streamer.userName}: ${(streamer.stream ? streamer.stream.gameName + ': ' : '')}${(streamer.liveViewers || streamer.views).toLocaleString()} ${streamer.liveViewers ? 'viewers' : 'views'}`}
                 fontSize='md'
                 placement='top' hasArrow bg='blackAlpha.900' color="gray.200" p={3} rounded={'lg'}
             >
@@ -118,9 +124,9 @@ export default function ArenaPage() {
                 <Avatar
                     onClick={() => { setChannel(`${streamer.userName}`); trackEvent(accounts[0], streamer.userName); }}
                     mr={4}
-                    size={size || 'md'}
+                    size={'md'}
                     name={streamer.userName}
-                    src={ process.env.REACT_APP_API_URL || 'https://furia-api.herokuapp.com' + streamer.profilePictureUrl}
+                    src={process.env.REACT_APP_API_URL || 'https://furia-api.herokuapp.com' + streamer.profilePictureUrl}
                     sx={streamer.userName === channel ?
                         {
                             cursor: 'pointer',
@@ -155,7 +161,7 @@ export default function ArenaPage() {
     return (
         <AntiCheat channel={channel} account={accounts[0]} h='100%' w='100%' overflow='hidden'>
             <Grid
-                h={{ base: 'calc(100vh - 48px)', md: 'calc(100vh - 92px)' }}
+                h={{ base: 'calc(100vh - 48px)', md: 'calc(100vh - 72px)' }}
                 w='100%'
                 templateColumns='repeat(6, 1fr)'
                 gap={{ base: 0, md: 2 }}
@@ -170,13 +176,13 @@ export default function ArenaPage() {
                 </GridItem>
 
                 <GridItem colSpan={{ base: 6, md: 5 }} h={{ base: '25vh', md: 'full' }}>
-                    <ReactPlayer  
+                    <ReactPlayer
                         url={channel === "" ? "https://www.youtube.com/watch?v=MfXpg5XZISQ" : `https://twitch.tv/${channel}`}
                         width='100%'
                         height='100%'
                         playing={playing}
-                        onPause={()=>setPlaying(false)}
-                        onPlay={()=>setPlaying(true)}
+                        onPause={() => setPlaying(false)}
+                        onPlay={() => setPlaying(true)}
                     />
                 </GridItem>
                 <GridItem colSpan={{ base: 6, md: 1 }} minW={{ base: 'full', md: '300px' }} mt={{ base: 1, md: 0 }} h={{ base: '65vh', md: 'full' }} >
@@ -188,15 +194,15 @@ export default function ArenaPage() {
                             </VStack>
                         </Box>
                         <Box w='100%' h='100%' >
-                        {channel !== "" &&
-                            <iframe src={`https://www.twitch.tv/embed/${channel}/chat?darkpopout&migration=true&parent=${window.location.hostname}`}
-                                width='100%'
-                                height='100%'
-                                title="twitch-chat"
-                                sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-modals"
-                            >
-                            </iframe>
-                        }
+                            {channel !== "" &&
+                                <iframe src={`https://www.twitch.tv/embed/${channel}/chat?darkpopout&migration=true&parent=${window.location.hostname}`}
+                                    width='100%'
+                                    height='100%'
+                                    title="twitch-chat"
+                                    sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-modals"
+                                >
+                                </iframe>
+                            }
                         </Box>
                     </VStack>
                 </GridItem>
@@ -217,7 +223,7 @@ export default function ArenaPage() {
                                     mr={4}
                                     opacity={0.4}
                                     style={{ cursor: 'pointer' }}
-                                    size={size || 'md'}
+                                    size={'md'}
                                 />
                             </PopoverTrigger>
                             <Portal>
