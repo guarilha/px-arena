@@ -33,9 +33,9 @@ const ConnectButton: React.FC<ConnectButtonProps> = () => {
       px={4}
       fontSize={'sm'}
     >
-      <Icon fontSize="sm" mr={2} color={"green.300"}><FontAwesomeIcon icon={faCheckCircle} /></Icon> {accounts[0].slice(0, 4) + '…' + accounts[0].slice(accounts[0].length - 3, accounts[0].length)}
+      <Icon onClick={disconnect} fontSize="sm" mr={2} color={"green.300"}><FontAwesomeIcon icon={faCheckCircle} /></Icon> {accounts[0].slice(0, 4) + '…' + accounts[0].slice(accounts[0].length - 3, accounts[0].length)}
     </Tag>
-    <Box display={{base: 'block', md:'none'}}>
+    <Box >
       <PXPWallet />
     </Box>
     <Button onClick={disconnect} size='sm'><Icon color={"whiteAlpha.500"}><FontAwesomeIcon icon={faArrowRightFromBracket} /></Icon></Button>
@@ -56,7 +56,7 @@ const ConnectButton: React.FC<ConnectButtonProps> = () => {
 
   return (
     <>
-    {accounts.length > 0 ? (
+      {accounts.length > 0 ? (
         <WalletButton />
       ) : (
         <Connect />

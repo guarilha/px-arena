@@ -29,19 +29,18 @@ export const PXPWallet = () => {
             justify="space-between"
             align="center"
             position={"relative"}
-            px={{base:3, md:4}}
+            px={{base:2, md:3}}
             py={{base:1, md:2}}
           >
             <Box>
-              <Heading fontSize={{base:'sm', md:'lg'}} fontWeight={500} mr={4}>
+              <Heading fontSize={{base:'sm', md:'md'}} fontWeight={500} mr={4}>
                 PX Points 
               </Heading>
             </Box>
             <Stack spacing={0} align={"end"}>
               <Heading
-                fontSize={{base:'sm', md:'lg'}}
+                fontSize={{base:'sm', md:'md'}}
                 fontWeight={"bold"}
-                fontFamily={"IBM Plex Mono"}
               >
                 {isLoading ? <Spinner size='sm' /> : points?.amount}
               </Heading>

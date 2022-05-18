@@ -25,6 +25,7 @@ import {
     Text,
     Button,
     Icon,
+    IconButton,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import loadable from '@loadable/component';
@@ -38,7 +39,7 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons/faMagnifyin
 
 import useStreamers from "../../hooks/useStreamers";
 import { useAccounts } from "../../providers/AccountsProvider";
-import useWindowDimensions from "../../hooks/useWindowDimensions";
+import { faAnglesLeft, faAnglesRight, faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 
 const AntiCheat = loadable(() => import('../../components/AntiCheat'));
 const ConnectButton = loadable(() => import('../../components/ConnectButton'));
@@ -93,8 +94,7 @@ export default function ArenaPage() {
     const [search, setSearch] = useState("");
     const [playing, setPlaying] = useState(false);
     const initialFocusRef = React.useRef();
-    const { height, width } = useWindowDimensions();
-
+    const [showSidebar, setShowSidebar] = useState(false)
     const [channel, setChannel] = useState("")
     if (isLoadingStreamers) return <Center h='100vh'><Spinner /></Center>
 
@@ -112,7 +112,7 @@ export default function ArenaPage() {
 
     const RenderAvatar = ({ index, style }) => {
         const streamer = filteredStreamers[index]
-        
+
         return (
             <Tooltip
                 key={`${streamer.id}-${streamer.userName}`}
@@ -156,8 +156,6 @@ export default function ArenaPage() {
         )
     }
 
-    const size = height > width ? 'sm' : 'md'
-
     return (
         <AntiCheat channel={channel} account={accounts[0]} h='100%' w='100%' overflow='hidden'>
             <Grid
@@ -170,12 +168,12 @@ export default function ArenaPage() {
                 p={{ base: 0, md: 2 }}>
 
                 <GridItem colSpan={6} display={{ base: 'block', md: 'none' }} px={2} pt={2} pb={{ base: 1, md: 2 }}>
-                    <VStack spacing={1}>
+                    <VStack spacing={2}>
                         <ConnectButton />
                     </VStack>
                 </GridItem>
 
-                <GridItem colSpan={{ base: 6, md: 5 }} h={{ base: '25vh', md: 'full' }}>
+                <GridItem colSpan={{ base: 6, md: (showSidebar ? 5 : 6) }} h={{ base: '25vh', md: 'full' }}>
                     <ReactPlayer
                         url={channel === "" ? "https://www.youtube.com/watch?v=MfXpg5XZISQ" : `https://twitch.tv/${channel}`}
                         width='100%'
@@ -184,13 +182,25 @@ export default function ArenaPage() {
                         onPause={() => setPlaying(false)}
                         onPlay={() => setPlaying(true)}
                     />
+                    <Box
+                        position="absolute"
+                        bottom="70px"
+                        right={0}
+                        p={2}
+                        bg="black"
+                        display={showSidebar ? 'none' : 'block'}>
+                        <IconButton
+                            onClick={() => setShowSidebar(true)}
+                            variant="solid"
+                            icon={<Icon fontSize='1.5rem'><FontAwesomeIcon icon={faAnglesLeft} /></Icon>}
+                        />
+                    </Box>
                 </GridItem>
-                <GridItem colSpan={{ base: 6, md: 1 }} minW={{ base: 'full', md: '300px' }} mt={{ base: 1, md: 0 }} h={{ base: '65vh', md: 'full' }} >
-                    <VStack h='100%'>
+                <GridItem display={showSidebar ? 'block' : 'none'} colSpan={{ base: 6, md: 1 }} minW={{ base: 'full', md: '300px' }} mt={{ base: 1, md: 0 }} h={{ base: '65vh', md: 'full' }} >
+                    <VStack h='100%' align={'flex-start'}>
                         <Box w='100%' display={{ base: 'none', md: 'block' }}>
-                            <VStack spacing={1}>
+                            <VStack spacing={2} mb={2}>
                                 <ConnectButton />
-                                <PXPWallet />
                             </VStack>
                         </Box>
                         <Box w='100%' h='100%' >
@@ -204,6 +214,10 @@ export default function ArenaPage() {
                                 </iframe>
                             }
                         </Box>
+                        <IconButton
+                                onClick={() => setShowSidebar(false)}
+                                icon={<Icon fontSize='1.5rem'><FontAwesomeIcon icon={faAnglesRight} /></Icon>}
+                            />
                     </VStack>
                 </GridItem>
             </Grid>
