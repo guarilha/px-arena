@@ -22,23 +22,23 @@ import {
   Icon,
   DrawerCloseButton,
 } from "@chakra-ui/react";
+import { useAccounts } from "../../providers/AccountsProvider";
+import usePoints from "../../hooks/usePoints";
 
 
 const PXWalletAvatar = () => (
-  <HStack spacing={3} pt={7}>
+  <HStack>
     <Avatar
-      size={"xl"}
-      src={"/px-avatar.png"}
+      size={"lg"}
+      src={"/profile.gif"}
       alt={"Author"}
       css={{
         border: "2px solid rgb(128, 90, 213)",
         // borderColor: 'purple.500'
       }}
-      position="absolute"
-      bottom={4}
-      left={4}
+      
     />
-    <HStack
+    {/* <HStack
       spacing={2}
       position="absolute"
       left={"24px"}
@@ -57,7 +57,7 @@ const PXWalletAvatar = () => (
       >
         80
       </Heading>
-    </HStack>
+    </HStack> */}
     {/* TODO: When value is 100, left must be different */}
   </HStack>
 );
@@ -65,49 +65,41 @@ const PXWalletAvatar = () => (
 export const PXWallet = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const drawerRef = React.useRef();
+  const accounts = useAccounts();
+  const { data: points, isLoading } = usePoints(accounts[0]);
 
   return (
     <>
       <Center w={"full"}>
         <Box
-          // maxW={'270px'}
           w={"full"}
           bg={useColorModeValue("white", "gray.900")}
           boxShadow={"2xl"}
           rounded={"xl"}
           overflow={"hidden"}
+          bgGradient='linear(to-b, purple.500, purple.900)'
           onClick={onOpen}
           ref={drawerRef}
+          px={2}
+          py={2}
           sx={{ cursor: "pointer" }}
         >
-          <Image
-            h={"50px"}
-            w={"full"}
-            src={"/bg-how-it-works.jpg"}
-            objectFit={"cover"}
-          />
-          <Flex
-            mt={-8}
-            justify="space-between"
-            align="start"
-            position={"relative"}
-          >
-            <Box></Box>
-            <Stack spacing={0} align={"end"} mr={4} mt={0} pb={4}>
-              <Heading fontSize={"xl"} fontWeight={500} mt={-1} mb={6}>
-                @aakkari
-              </Heading>
+
+            <HStack justify='space-between' align='center'>
+              <PXWalletAvatar />
+              <Stack spacing={0} align={"end"} >
               <Heading
                 fontSize={"lg"}
                 fontWeight={"bold"}
                 fontFamily={"IBM Plex Mono"}
                 mt={1}
               >
-                420.69
+                {points?.amount}
               </Heading>
-              <Text color={"gray.500"}>PX Balance</Text>
+              <Text color={"gray.300"}>Points</Text>
             </Stack>
-          </Flex>
+            </HStack>
+            
         </Box>
       </Center>
       <Drawer

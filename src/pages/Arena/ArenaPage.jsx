@@ -26,6 +26,7 @@ import {
     Button,
     Icon,
     IconButton,
+    HStack
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import loadable from '@loadable/component';
@@ -40,6 +41,7 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons/faMagnifyin
 import useStreamers from "../../hooks/useStreamers";
 import { useAccounts } from "../../providers/AccountsProvider";
 import { faAnglesLeft, faAnglesRight, faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import PXWallet from "../../components/PXWallet";
 
 const AntiCheat = loadable(() => import('../../components/AntiCheat'));
 const ConnectButton = loadable(() => import('../../components/ConnectButton'));
@@ -94,7 +96,7 @@ export default function ArenaPage() {
     const [search, setSearch] = useState("");
     const [playing, setPlaying] = useState(false);
     const initialFocusRef = React.useRef();
-    const [showSidebar, setShowSidebar] = useState(false)
+    const [showSidebar, setShowSidebar] = useState(true)
     const [channel, setChannel] = useState("")
     if (isLoadingStreamers) return <Center h='100vh'><Spinner /></Center>
 
@@ -159,13 +161,15 @@ export default function ArenaPage() {
     return (
         <AntiCheat channel={channel} account={accounts[0]} h='100%' w='100%' overflow='hidden'>
             <Grid
-                h={{ base: 'calc(100vh - 48px)', md: 'calc(100vh - 72px)' }}
+                h={{ base: 'calc(100vh - 48px -8px)', md: 'calc(100vh - 88px)' }}
                 w='100%'
                 templateColumns='repeat(6, 1fr)'
                 gap={{ base: 0, md: 2 }}
                 bg='black'
                 overflow={'hidden'}
-                p={{ base: 0, md: 2 }}>
+                p={{ base: 0, md: 2 }}
+                
+                >
 
                 <GridItem colSpan={6} display={{ base: 'block', md: 'none' }} px={2} pt={2} pb={{ base: 1, md: 2 }}>
                     <VStack spacing={2}>
@@ -184,7 +188,7 @@ export default function ArenaPage() {
                     />
                     <Box
                         position="absolute"
-                        bottom="70px"
+                        top={1}
                         right={0}
                         p={2}
                         bg="black"
@@ -196,13 +200,18 @@ export default function ArenaPage() {
                         />
                     </Box>
                 </GridItem>
-                <GridItem display={showSidebar ? 'block' : 'none'} colSpan={{ base: 6, md: 1 }} minW={{ base: 'full', md: '300px' }} mt={{ base: 1, md: 0 }} h={{ base: '65vh', md: 'full' }} >
+                <GridItem display={showSidebar ? 'block' : 'none'} colSpan={{ base: 6, md: 1 }} minW={{ base: 'full', md: '200px' }} mt={{ base: 1, md: 0 }} h={{ base: '65vh', md: 'full' }} >
                     <VStack h='100%' align={'flex-start'}>
                         <Box w='100%' display={{ base: 'none', md: 'block' }}>
-                            <VStack spacing={2} mb={2}>
+                            <HStack spacing={2} mb={2}>
                                 <ConnectButton />
-                            </VStack>
+                                <IconButton
+                                    onClick={() => setShowSidebar(false)}
+                                    icon={<Icon fontSize='1.5rem'><FontAwesomeIcon icon={faAnglesRight} /></Icon>}
+                                />
+                            </HStack>
                         </Box>
+                        <PXWallet />
                         <Box w='100%' h='100%' >
                             {channel !== "" &&
                                 <iframe src={`https://www.twitch.tv/embed/${channel}/chat?darkpopout&migration=true&parent=${window.location.hostname}`}
@@ -214,10 +223,7 @@ export default function ArenaPage() {
                                 </iframe>
                             }
                         </Box>
-                        <IconButton
-                                onClick={() => setShowSidebar(false)}
-                                icon={<Icon fontSize='1.5rem'><FontAwesomeIcon icon={faAnglesRight} /></Icon>}
-                            />
+
                     </VStack>
                 </GridItem>
             </Grid>
@@ -265,7 +271,8 @@ export default function ArenaPage() {
                         </Popover>
 
                         {!isLoadingStreamers ?
-                            <Box display={'block'} w="100%">
+                            <Box w="100%"
+                            >
                                 <AutoSizer>
                                     {({ height, width }) => (
                                         <FixedSizeList

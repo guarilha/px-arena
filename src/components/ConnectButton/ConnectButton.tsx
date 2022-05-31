@@ -35,10 +35,10 @@ const ConnectButton: React.FC<ConnectButtonProps> = () => {
     >
       <Icon onClick={disconnect} fontSize="sm" mr={2} color={"green.300"}><FontAwesomeIcon icon={faCheckCircle} /></Icon> {accounts[0].slice(0, 4) + '…' + accounts[0].slice(accounts[0].length - 3, accounts[0].length)}
     </Tag>
-    <Box >
+    {/* <Box >
       <PXPWallet />
-    </Box>
-    <Button onClick={disconnect} size='sm'><Icon color={"whiteAlpha.500"}><FontAwesomeIcon icon={faArrowRightFromBracket} /></Icon></Button>
+    </Box> */}
+    {/* <Button onClick={disconnect} size='sm'><Icon color={"whiteAlpha.500"}><FontAwesomeIcon icon={faArrowRightFromBracket} /></Icon></Button> */}
   </Flex>)
 
   const Connect = () => (
