@@ -8,9 +8,11 @@ import {
     VStack,
     Tooltip,
     AvatarBadge,
+    SimpleGrid,
     Spinner,
     PopoverTrigger,
     Popover,
+    Heading,
     Portal,
     PopoverContent,
     PopoverArrow,
@@ -94,10 +96,10 @@ export default function ArenaPage() {
     const { data: streamers, isLoading: isLoadingStreamers } = useStreamers();
     const accounts = useAccounts();
     const [search, setSearch] = useState("");
-    const [playing, setPlaying] = useState(false);
+    const [playing, setPlaying] = useState(true);
     const initialFocusRef = React.useRef();
     const [showSidebar, setShowSidebar] = useState(true)
-    const [channel, setChannel] = useState("")
+    const [channel, setChannel] = useState(streamers[0].userName)
     if (isLoadingStreamers) return <Center h='100vh'><Spinner /></Center>
 
     const filteredStreamers = !search
@@ -160,137 +162,158 @@ export default function ArenaPage() {
 
     return (
         <AntiCheat channel={channel} account={accounts[0]} h='100%' w='100%' overflow='hidden'>
-            <Grid
-                h={{ base: 'calc(100vh - 48px -8px)', md: 'calc(100vh - 88px)' }}
-                w='100%'
-                templateColumns='repeat(6, 1fr)'
-                gap={{ base: 0, md: 2 }}
-                bg='black'
-                overflow={'hidden'}
-                p={{ base: 0, md: 2 }}
-                
+            {accounts.length > 0 ? <>
+                <Grid
+                    h={{ base: 'calc(100vh - 48px -8px)', md: 'calc(100vh - 88px)' }}
+                    w='100%'
+                    templateColumns='repeat(6, 1fr)'
+                    gap={{ base: 0, md: 2 }}
+                    bg='black'
+                    overflow={'hidden'}
+                    p={{ base: 0, md: 2 }}
+
                 >
 
-                <GridItem colSpan={6} display={{ base: 'block', md: 'none' }} px={2} pt={2} pb={{ base: 1, md: 2 }}>
-                    <VStack spacing={2}>
+                    <GridItem colSpan={6} display={{ base: 'block', md: 'none' }} px={2} pt={2} pb={{ base: 1, md: 2 }}>
+                        <VStack spacing={2}>
+                            <ConnectButton />
+                        </VStack>
+                    </GridItem>
+
+                    <GridItem colSpan={{ base: 6, md: (showSidebar ? 5 : 6) }} h={{ base: '25vh', md: 'full' }}>
+                        <ReactPlayer
+                            url={channel === "" ? "https://www.youtube.com/watch?v=MfXpg5XZISQ" : `https://twitch.tv/${channel}`}
+                            width='100%'
+                            height='100%'
+                            playing={playing}
+                            onPause={() => setPlaying(false)}
+                            onPlay={() => setPlaying(true)}
+                        />
+                        <Box
+                            position="absolute"
+                            top={1}
+                            right={0}
+                            p={2}
+                            bg="black"
+                            display={showSidebar ? 'none' : 'block'}>
+                            <IconButton
+                                onClick={() => setShowSidebar(true)}
+                                variant="solid"
+                                icon={<Icon fontSize='1.5rem'><FontAwesomeIcon icon={faAnglesLeft} /></Icon>}
+                            />
+                        </Box>
+                    </GridItem>
+                    <GridItem display={showSidebar ? 'block' : 'none'} colSpan={{ base: 6, md: 1 }} minW={{ base: 'full', md: '200px' }} mt={{ base: 1, md: 0 }} h={{ base: '65vh', md: 'full' }} >
+                        <VStack h='100%' align={'flex-start'}>
+                            <Box w='100%' display={{ base: 'none', md: 'block' }}>
+                                <HStack spacing={2} mb={2}>
+                                    <ConnectButton />
+                                    <IconButton
+                                        onClick={() => setShowSidebar(false)}
+                                        icon={<Icon fontSize='1.5rem'><FontAwesomeIcon icon={faAnglesRight} /></Icon>}
+                                    />
+                                </HStack>
+                            </Box>
+                            <PXWallet />
+                            <Box w='100%' h='100%' >
+                                {channel !== "" &&
+                                    <iframe src={`https://www.twitch.tv/embed/${channel}/chat?darkpopout&migration=true&parent=${window.location.hostname}`}
+                                        width='100%'
+                                        height='100%'
+                                        title="twitch-chat"
+                                        sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-modals"
+                                    >
+                                    </iframe>
+                                }
+                            </Box>
+
+                        </VStack>
+                    </GridItem>
+                </Grid>
+                <Grid w='100%' templateColumns='repeat(1, 1fr)'>
+                    <GridItem sx={{ overflowX: 'scroll', overflowY: 'hidden' }}>
+                        <Flex p={{ base: 2, md: 4 }} direction="row" sx={{ width: '100%', whiteSpace: 'nowrap' }}>
+                            <Popover
+                                initialFocusRef={initialFocusRef}
+                                placement='bottom'
+                                closeOnBlur={false}
+                                onClose={() => setSearch('')}
+                            >
+                                <PopoverTrigger>
+                                    <Avatar
+                                        bg='gray.300'
+                                        icon={<Icon fontSize='1.5rem'><FontAwesomeIcon icon={faMagnifyingGlass} /></Icon>}
+                                        mr={4}
+                                        opacity={0.4}
+                                        style={{ cursor: 'pointer' }}
+                                        size={'md'}
+                                    />
+                                </PopoverTrigger>
+                                <Portal>
+                                    <PopoverContent>
+                                        <PopoverArrow />
+                                        <PopoverBody>
+                                            <InputGroup my={1}>
+                                                <InputLeftElement
+                                                    pointerEvents='none'
+                                                    children={<Icon color='gray.300'><FontAwesomeIcon icon={faMagnifyingGlass} /></Icon>}
+                                                />
+                                                <Input
+                                                    ref={initialFocusRef}
+                                                    placeholder='Search'
+                                                    onChange={(e) => setSearch(e.target.value)}
+                                                    value={search}
+                                                />
+                                                <InputRightElement
+                                                    children={<PopoverCloseButton />}
+                                                />
+                                            </InputGroup>
+                                        </PopoverBody>
+                                    </PopoverContent>
+                                </Portal>
+                            </Popover>
+
+                            {!isLoadingStreamers ?
+                                <Box w="100%"
+                                >
+                                    <AutoSizer>
+                                        {({ height, width }) => (
+                                            <FixedSizeList
+                                                height={height + 12}
+                                                width={width}
+                                                itemCount={filteredStreamers.length}
+                                                itemSize={58}
+                                                layout="horizontal"
+                                            >
+                                                {RenderAvatar}
+                                            </FixedSizeList>
+                                        )}
+                                    </AutoSizer>
+                                </Box>
+                                : <Spinner />}
+                        </Flex>
+                    </GridItem>
+                </Grid>
+            </> : <>
+                <Center h='100vh'>
+                    <VStack w='50vw' textAlign='center' spacing={4}>
+                        <Heading
+                            fontWeight={600}
+                            fontSize={{ base: '3xl', sm: '4xl', md: '6xl' }}
+                            lineHeight={'110%'}>
+                            Watch your favorite{' '}
+                            <Text as={'span'} color={'purple.400'}>
+                                streamers
+                            </Text>
+                            {' '}to earn points
+                        </Heading>
+                        <Text color={'gray.500'} fontSize='xl' pb={12}>
+                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt minus corporis, iste illum fugiat quos repellendus, repellat necessitatibus nulla ad, quod ipsa assumenda velit! Eligendi reiciendis alias rerum provident rem.
+                        </Text>
                         <ConnectButton />
                     </VStack>
-                </GridItem>
-
-                <GridItem colSpan={{ base: 6, md: (showSidebar ? 5 : 6) }} h={{ base: '25vh', md: 'full' }}>
-                    <ReactPlayer
-                        url={channel === "" ? "https://www.youtube.com/watch?v=MfXpg5XZISQ" : `https://twitch.tv/${channel}`}
-                        width='100%'
-                        height='100%'
-                        playing={playing}
-                        onPause={() => setPlaying(false)}
-                        onPlay={() => setPlaying(true)}
-                    />
-                    <Box
-                        position="absolute"
-                        top={1}
-                        right={0}
-                        p={2}
-                        bg="black"
-                        display={showSidebar ? 'none' : 'block'}>
-                        <IconButton
-                            onClick={() => setShowSidebar(true)}
-                            variant="solid"
-                            icon={<Icon fontSize='1.5rem'><FontAwesomeIcon icon={faAnglesLeft} /></Icon>}
-                        />
-                    </Box>
-                </GridItem>
-                <GridItem display={showSidebar ? 'block' : 'none'} colSpan={{ base: 6, md: 1 }} minW={{ base: 'full', md: '200px' }} mt={{ base: 1, md: 0 }} h={{ base: '65vh', md: 'full' }} >
-                    <VStack h='100%' align={'flex-start'}>
-                        <Box w='100%' display={{ base: 'none', md: 'block' }}>
-                            <HStack spacing={2} mb={2}>
-                                <ConnectButton />
-                                <IconButton
-                                    onClick={() => setShowSidebar(false)}
-                                    icon={<Icon fontSize='1.5rem'><FontAwesomeIcon icon={faAnglesRight} /></Icon>}
-                                />
-                            </HStack>
-                        </Box>
-                        <PXWallet />
-                        <Box w='100%' h='100%' >
-                            {channel !== "" &&
-                                <iframe src={`https://www.twitch.tv/embed/${channel}/chat?darkpopout&migration=true&parent=${window.location.hostname}`}
-                                    width='100%'
-                                    height='100%'
-                                    title="twitch-chat"
-                                    sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-modals"
-                                >
-                                </iframe>
-                            }
-                        </Box>
-
-                    </VStack>
-                </GridItem>
-            </Grid>
-            <Grid w='100%' templateColumns='repeat(1, 1fr)'>
-                <GridItem sx={{ overflowX: 'scroll', overflowY: 'hidden' }}>
-                    <Flex p={{ base: 2, md: 4 }} direction="row" sx={{ width: '100%', whiteSpace: 'nowrap' }}>
-                        <Popover
-                            initialFocusRef={initialFocusRef}
-                            placement='bottom'
-                            closeOnBlur={false}
-                            onClose={() => setSearch('')}
-                        >
-                            <PopoverTrigger>
-                                <Avatar
-                                    bg='gray.300'
-                                    icon={<Icon fontSize='1.5rem'><FontAwesomeIcon icon={faMagnifyingGlass} /></Icon>}
-                                    mr={4}
-                                    opacity={0.4}
-                                    style={{ cursor: 'pointer' }}
-                                    size={'md'}
-                                />
-                            </PopoverTrigger>
-                            <Portal>
-                                <PopoverContent>
-                                    <PopoverArrow />
-                                    <PopoverBody>
-                                        <InputGroup my={1}>
-                                            <InputLeftElement
-                                                pointerEvents='none'
-                                                children={<Icon color='gray.300'><FontAwesomeIcon icon={faMagnifyingGlass} /></Icon>}
-                                            />
-                                            <Input
-                                                ref={initialFocusRef}
-                                                placeholder='Search'
-                                                onChange={(e) => setSearch(e.target.value)}
-                                                value={search}
-                                            />
-                                            <InputRightElement
-                                                children={<PopoverCloseButton />}
-                                            />
-                                        </InputGroup>
-                                    </PopoverBody>
-                                </PopoverContent>
-                            </Portal>
-                        </Popover>
-
-                        {!isLoadingStreamers ?
-                            <Box w="100%"
-                            >
-                                <AutoSizer>
-                                    {({ height, width }) => (
-                                        <FixedSizeList
-                                            height={height + 20}
-                                            width={width}
-                                            itemCount={filteredStreamers.length}
-                                            itemSize={58}
-                                            layout="horizontal"
-                                        >
-                                            {RenderAvatar}
-                                        </FixedSizeList>
-                                    )}
-                                </AutoSizer>
-                            </Box>
-                            : <Spinner />}
-                    </Flex>
-                </GridItem>
-            </Grid>
+                </Center>
+            </>}
         </AntiCheat>
     )
 }

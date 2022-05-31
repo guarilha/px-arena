@@ -32,8 +32,9 @@ const ConnectButton: React.FC<ConnectButtonProps> = () => {
       py={2}
       px={4}
       fontSize={'sm'}
+      onClick={disconnect}
     >
-      <Icon onClick={disconnect} fontSize="sm" mr={2} color={"green.300"}><FontAwesomeIcon icon={faCheckCircle} /></Icon> {accounts[0].slice(0, 4) + '…' + accounts[0].slice(accounts[0].length - 3, accounts[0].length)}
+      <Icon fontSize="sm" mr={2} color={"green.300"}><FontAwesomeIcon icon={faCheckCircle} /></Icon> {accounts[0].slice(0, 4) + '…' + accounts[0].slice(accounts[0].length - 3, accounts[0].length)}
     </Tag>
     {/* <Box >
       <PXPWallet />
