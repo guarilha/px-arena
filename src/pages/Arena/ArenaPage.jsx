@@ -99,7 +99,8 @@ export default function ArenaPage() {
     const [playing, setPlaying] = useState(true);
     const initialFocusRef = React.useRef();
     const [showSidebar, setShowSidebar] = useState(true)
-    const [channel, setChannel] = useState(streamers[0].userName || "FURIAtv")
+    const firstStream = streamers ? streamers[0].userName : "FURIAtv"
+    const [channel, setChannel] = useState(firstStream)
     if (isLoadingStreamers) return <Center h='100vh'><Spinner /></Center>
 
     const filteredStreamers = !search
