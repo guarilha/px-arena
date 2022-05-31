@@ -162,7 +162,7 @@ export default function ArenaPage() {
 
     return (
         <AntiCheat channel={channel} account={accounts[0]} h='100%' w='100%' overflow='hidden'>
-            {accounts.length > 0 ? <>
+            {(accounts && accounts.length > 0) ? <>
                 <Grid
                     h={{ base: 'calc(100vh - 48px -8px)', md: 'calc(100vh - 88px)' }}
                     w='100%'
