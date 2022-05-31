@@ -99,7 +99,7 @@ export default function ArenaPage() {
     const [playing, setPlaying] = useState(true);
     const initialFocusRef = React.useRef();
     const [showSidebar, setShowSidebar] = useState(true)
-    const [channel, setChannel] = useState(streamers[0].userName)
+    const [channel, setChannel] = useState(streamers[0].userName || "FURIAtv")
     if (isLoadingStreamers) return <Center h='100vh'><Spinner /></Center>
 
     const filteredStreamers = !search
@@ -182,7 +182,7 @@ export default function ArenaPage() {
 
                     <GridItem colSpan={{ base: 6, md: (showSidebar ? 5 : 6) }} h={{ base: '25vh', md: 'full' }}>
                         <ReactPlayer
-                            url={channel === "" ? "https://www.youtube.com/watch?v=MfXpg5XZISQ" : `https://twitch.tv/${channel}`}
+                            url={ `https://twitch.tv/${channel}`}
                             width='100%'
                             height='100%'
                             playing={playing}
