@@ -27,6 +27,7 @@ import {
     Text,
     Button,
     Icon,
+    Link,
     IconButton,
     HStack
 } from "@chakra-ui/react";
@@ -44,6 +45,7 @@ import useStreamers from "../../hooks/useStreamers";
 import { useAccounts } from "../../providers/AccountsProvider";
 import { faAnglesLeft, faAnglesRight, faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import PXWallet from "../../components/PXWallet";
+import Navbar from "../../components/Navbar";
 
 const AntiCheat = loadable(() => import('../../components/AntiCheat'));
 const ConnectButton = loadable(() => import('../../components/ConnectButton'));
@@ -91,6 +93,29 @@ export const Ads = () => {
         <>{renderDaoVote()}</>
     )
 }
+
+
+const LandingPage = () => {
+    return <Center h='100vh'>
+    <VStack w='50vw' textAlign='center' spacing={4}>
+        <Heading
+            fontWeight={600}
+            fontSize={{ base: '3xl', sm: '4xl', md: '6xl' }}
+            lineHeight={'110%'}>
+            Watch your favorite{' '}
+            <Text as={'span'} color={'purple.400'}>
+                streamers
+            </Text>
+            {' '}to earn points
+        </Heading>
+        <Text color={'gray.500'} fontSize='xl' pb={12}>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt minus corporis, iste illum fugiat quos repellendus, repellat necessitatibus nulla ad, quod ipsa assumenda velit! Eligendi reiciendis alias rerum provident rem.
+        </Text>
+        <ConnectButton />
+    </VStack>
+</Center>
+}
+
 
 export default function ArenaPage() {
     const { data: streamers, isLoading: isLoadingStreamers } = useStreamers();
@@ -164,8 +189,9 @@ export default function ArenaPage() {
     return (
         <AntiCheat channel={channel} account={accounts[0]} h='100%' w='100%' overflow='hidden'>
             {(accounts && accounts.length > 0) ? <>
+                <Navbar />
                 <Grid
-                    h={{ base: 'calc(100vh - 48px -8px)', md: 'calc(100vh - 88px)' }}
+                    h={{ base: 'calc(100vh - 48px -8px)', md: 'calc(100vh - 3rem - 86px)' }}
                     w='100%'
                     templateColumns='repeat(6, 1fr)'
                     gap={{ base: 0, md: 2 }}
@@ -175,11 +201,11 @@ export default function ArenaPage() {
 
                 >
 
-                    <GridItem colSpan={6} display={{ base: 'block', md: 'none' }} px={2} pt={2} pb={{ base: 1, md: 2 }}>
+                    {/* <GridItem colSpan={6} display={{ base: 'block', md: 'none' }} px={2} pt={2} pb={{ base: 1, md: 2 }}>
                         <VStack spacing={2}>
                             <ConnectButton />
                         </VStack>
-                    </GridItem>
+                    </GridItem> */}
 
                     <GridItem colSpan={{ base: 6, md: (showSidebar ? 5 : 6) }} h={{ base: '25vh', md: 'full' }}>
                         <ReactPlayer
@@ -192,30 +218,43 @@ export default function ArenaPage() {
                         />
                         <Box
                             position="absolute"
-                            top={1}
+                            top={'3.5rem'}
                             right={0}
-                            p={2}
+                            p={0}
+                            rounded='lg'
                             bg="black"
                             display={showSidebar ? 'none' : 'block'}>
                             <IconButton
+                                size='sm'
                                 onClick={() => setShowSidebar(true)}
                                 variant="solid"
-                                icon={<Icon fontSize='1.5rem'><FontAwesomeIcon icon={faAnglesLeft} /></Icon>}
+                                icon={<Icon fontSize='1rem'><FontAwesomeIcon icon={faAnglesLeft} /></Icon>}
                             />
                         </Box>
                     </GridItem>
-                    <GridItem display={showSidebar ? 'block' : 'none'} colSpan={{ base: 6, md: 1 }} minW={{ base: 'full', md: '200px' }} mt={{ base: 1, md: 0 }} h={{ base: '65vh', md: 'full' }} >
+                    <GridItem display={showSidebar ? 'block' : 'none'} colSpan={{ base: 6, md: 1 }} minW={{ base: 'full', md: '200px' }} mt={{ base: 1, md: 0 }} h={{ base: '65vh', md: 'full' }} position='relative'>
+                        <Box
+                            position="absolute"
+                            top={0}
+                            left={0}
+                            p={0}
+                            rounded='lg'
+                            bg="black"
+                            >
+                        <IconButton
+                            size='sm'
+                            variant="solid"
+                            onClick={() => setShowSidebar(false)}
+                            icon={<Icon fontSize='1rem'><FontAwesomeIcon icon={faAnglesRight} /></Icon>}
+                        />
+                        </Box>
                         <VStack h='100%' align={'flex-start'}>
                             <Box w='100%' display={{ base: 'none', md: 'block' }}>
                                 <HStack spacing={2} mb={2}>
-                                    <ConnectButton />
-                                    <IconButton
-                                        onClick={() => setShowSidebar(false)}
-                                        icon={<Icon fontSize='1.5rem'><FontAwesomeIcon icon={faAnglesRight} /></Icon>}
-                                    />
+                                    {/* <ConnectButton /> */}
                                 </HStack>
                             </Box>
-                            <PXWallet />
+                            {/* <PXWallet /> */}
                             <Box w='100%' h='100%' >
                                 {channel !== "" &&
                                     <iframe src={`https://www.twitch.tv/embed/${channel}/chat?darkpopout&migration=true&parent=${window.location.hostname}`}
@@ -227,7 +266,7 @@ export default function ArenaPage() {
                                     </iframe>
                                 }
                             </Box>
-
+                            <Button w='full' colorScheme={'twitter'} as={Link}>Tweet</Button>
                         </VStack>
                     </GridItem>
                 </Grid>
@@ -296,24 +335,7 @@ export default function ArenaPage() {
                     </GridItem>
                 </Grid>
             </> : <>
-                <Center h='100vh'>
-                    <VStack w='50vw' textAlign='center' spacing={4}>
-                        <Heading
-                            fontWeight={600}
-                            fontSize={{ base: '3xl', sm: '4xl', md: '6xl' }}
-                            lineHeight={'110%'}>
-                            Watch your favorite{' '}
-                            <Text as={'span'} color={'purple.400'}>
-                                streamers
-                            </Text>
-                            {' '}to earn points
-                        </Heading>
-                        <Text color={'gray.500'} fontSize='xl' pb={12}>
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt minus corporis, iste illum fugiat quos repellendus, repellat necessitatibus nulla ad, quod ipsa assumenda velit! Eligendi reiciendis alias rerum provident rem.
-                        </Text>
-                        <ConnectButton />
-                    </VStack>
-                </Center>
+                <LandingPage />
             </>}
         </AntiCheat>
     )
